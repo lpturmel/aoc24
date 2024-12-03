@@ -6,15 +6,16 @@ struct DayOne {
     left: Vec<usize>,
     right: Vec<usize>,
 }
-impl Day<usize> for DayOne {
-    fn part_one(&self) -> usize {
+impl Day for DayOne {
+    type Res = usize;
+    fn part_one(&self) -> Self::Res {
         self.left
             .iter()
             .zip(self.right.iter())
             .map(|(l, r)| l.abs_diff(*r))
             .sum()
     }
-    fn part_two(&self) -> usize {
+    fn part_two(&self) -> Self::Res {
         let mut counts_right = HashMap::new();
         for num in &self.right {
             *counts_right.entry(num).or_insert(0) += 1;

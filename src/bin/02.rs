@@ -34,11 +34,12 @@ impl DayTwo {
     }
 }
 
-impl Day<usize> for DayTwo {
-    fn part_one(&self) -> usize {
+impl Day for DayTwo {
+    type Res = usize;
+    fn part_one(&self) -> Self::Res {
         self.data.iter().filter(|row| Self::is_valid(row)).count()
     }
-    fn part_two(&self) -> usize {
+    fn part_two(&self) -> Self::Res {
         self.data
             .iter()
             .filter(|row| Self::is_valid(row) || Self::is_valid_one_removed(row))

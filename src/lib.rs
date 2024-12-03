@@ -10,25 +10,26 @@ pub fn get_input(day: u32) -> Result<String, Error> {
 }
 
 /// Represents a day of the AoC challenge
-pub trait Day<R> {
+pub trait Day {
+    type Res;
     /// Constructs the day from it's input
     fn from_input() -> Result<Self, std::io::Error>
     where
         Self: std::marker::Sized;
-    fn part_one(&self) -> R;
-    fn part_two(&self) -> R;
+    fn part_one(&self) -> Self::Res;
+    fn part_two(&self) -> Self::Res;
 }
 
 /// Run the day challenge with standard output
-pub fn run<R, D>(day: D) -> Result<(), Error>
+pub fn run<D>(day: D) -> Result<(), Error>
 where
-    R: std::fmt::Display,
-    D: Day<R>,
+    D: Day,
+    D::Res: std::fmt::Debug,
 {
     let part_one = day.part_one();
-    println!("P1: {}", part_one);
+    println!("P1: {:?}", part_one);
 
     let part_two = day.part_two();
-    println!("P2: {}", part_two);
+    println!("P2: {:?}", part_two);
     Ok(())
 }
